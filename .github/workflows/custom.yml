@@ -1,0 +1,9 @@
+name: Custom Action
+on: workflow_dispatch
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: MalikUsama804/my-js-action@v1.0.0
+        with:
+          name: Usman
