@@ -1,0 +1,35 @@
+name: Triggers Demo
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Name
+        required: true
+      greeting:
+        description: Greeting
+        default: Hello
+  repository_dispatch:
+    types: [customwebhook]
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    env:
+      MY_ENV: hello
+    steps:
+      - run: |
+          echo "Actor: ${{ github.actor }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "OS: ${{ runner.os }}"
+          echo "Var: ${{ vars.MY_VAR }}  Env: $MY_ENV"
+      - if: contains(github.event_name, 'push')
+        run: echo "This was a push"
+      - if: success()
+        run: echo "Success"
+      - if: always()
+        run: echo "Always runs"
