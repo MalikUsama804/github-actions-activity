@@ -1,0 +1,7 @@
+name: Self Hosted
+on: workflow_dispatch
+jobs:
+  local:
+    runs-on: self-hosted
+    steps:
+      - run: echo "Running on my own machine"
